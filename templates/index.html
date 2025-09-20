@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nur Aşkım 💖</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <button id="startBtn">Hayatımın Anlamı</button>
+
+        <div id="step2" style="display:none;">
+            <button id="continueBtn">Devam Et</button>
+        </div>
+
+        <div id="loveQuestion" style="display:none;">
+            <p>Beni seviyor musun?</p>
+            <button id="yesBtn">Evet</button>
+            <button id="noBtn">Hayır</button>
+        </div>
+
+        <div id="finalMessage" style="display:none;">
+            <p id="loveText"></p>
+            <button id="letterBtn">Mektuba Bas</button>
+        </div>
+
+        <div id="letter" style="display:none;">
+            <p>Hayatımın anlamı, gönlümün sultanı, iyiki varsın seni çok seviyorum, sen benim herşeyimsin 💖</p>
+        </div>
+
+        <audio id="song" src="{{ url_for('static', filename='song.mp3') }}"></audio>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const step2 = document.getElementById('step2');
+        const continueBtn = document.getElementById('continueBtn');
+        const loveQuestion = document.getElementById('loveQuestion');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const finalMessage = document.getElementById('finalMessage');
+        const loveText = document.getElementById('loveText');
+        const letterBtn = document.getElementById('letterBtn');
+        const letter = document.getElementById('letter');
+        const song = document.getElementById('song');
+
+        startBtn.onclick = () => {
+            startBtn.style.display = 'none';
+            step2.style.display = 'block';
+        }
+
+        continueBtn.onclick = () => {
+            step2.style.display = 'none';
+            loveQuestion.style.display = 'block';
+        }
+
+        noBtn.onmouseenter = () => {
+            // Buton kaçma ve küçülme efekti
+            const x = Math.random() * 80;
+            const y = Math.random() * 80;
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + '%';
+            noBtn.style.top = y + '%';
+            noBtn.style.transform = 'scale(0.7)';
+        }
+
+        noBtn.onclick = () => {
+            noBtn.style.display = 'none';
+            loveQuestion.innerHTML += '<p>Yoksa sevmiyor musun? 😢</p>';
+        }
+
+        yesBtn.onclick = () => {
+            loveQuestion.style.display = 'none';
+            finalMessage.style.display = 'block';
+            loveText.innerText = 'Kaçamazsın 💖';
+        }
+
+        letterBtn.onclick = () => {
+            finalMessage.style.display = 'none';
+            letter.style.display = 'block';
+            song.play();
+        }
+    </script>
+</body>
+</html>
